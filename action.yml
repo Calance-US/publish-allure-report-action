@@ -2,24 +2,6 @@ name: Publish Allure Report Action
 description: Generate selenium report for the allure tool and send latest data.
 
 inputs:
-  browser_name:
-    description: "Name of the browser used for running tests. Accepted values - chrome, edge, firefox."
-    required: true
-    type: string
-  browser_version:
-    description: "Version of the browser to be installed. Defaults to latest."
-    required: false
-    type: string
-    default: "latest"
-  java_version:
-    description: "JDK version to be installed."
-    required: true
-    type: string
-  java_distribution:
-    description: "JDK distribution to be used. Accepted values - temurin, zulu, adopt, adopt-openj9, liberica, microsoft, corretto, semeru, oracle. Defaults to zulu."
-    required: false
-    type: string
-    default: "zulu"
   project_name:
     description: "This refers to the name of the project that goes in allure testing tool."
     required: false
@@ -30,11 +12,6 @@ inputs:
     required: false
     type: string
     default: "test-results"
-  test_suite_path:
-    description: "Path of the java application root of the test suites, relative to the repository root. Defaults to repository root."
-    required: false
-    type: string
-    default: "."
 
 secrets:
   QA_REPORT_TOOL_ADMIN_PASSWORD:
