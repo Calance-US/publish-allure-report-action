@@ -123,20 +123,20 @@ async function checkApiStatus() {
                             if (res.status !== 200) {
                                 core.setFailed(`Something went wrong in sending result. Status Code: ${res.status}`)
                             }
+
+                            const report = await fetch(`${apiUrl}/generate-report?project_id=${project}`, {
+                                method: 'GET',
+                                headers: { 'Content-Type': 'application/json', 'cookie': finalCookie },
+                            });
+                            if (report.status !== 200) {
+                                core.setFailed(`Something went wrong in generating report. Status Code: ${report.status}`)
+                            }
+                            const generatedReprot = await report.json()
+                            console.log(generatedReprot)
                         }
                     });
                 });
             });
-            const report = await fetch(`${apiUrl}/generate-report?project_id=${project}`, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json', 'cookie': finalCookie },
-            });
-
-            if (report.status !== 200) {
-                core.setFailed(`Something went wrong in generating report. Status Code: ${report.status}`)
-            }
-            const generatedReprot = await report.json()
-            console.log(generatedReprot)
 
         } else {
             core.setFailed(`Login API status is ${statusCode}.Error occurred.`);
