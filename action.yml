@@ -1,0 +1,45 @@
+name: Get the URL of packages
+description: Get the URL of packages that failed to delete or needs github assistance for deletion
+
+inputs:
+  browser_name:
+    description: "Name of the browser used for running tests. Accepted values - chrome, edge, firefox."
+    required: true
+    type: string
+  browser_version:
+    description: "Version of the browser to be installed. Defaults to latest."
+    required: false
+    type: string
+    default: "latest"
+  java_version:
+    description: "JDK version to be installed."
+    required: true
+    type: string
+  java_distribution:
+    description: "JDK distribution to be used. Accepted values - temurin, zulu, adopt, adopt-openj9, liberica, microsoft, corretto, semeru, oracle. Defaults to zulu."
+    required: false
+    type: string
+    default: "zulu"
+  project_name:
+    description: "This refers to the name of the project that goes in allure testing tool."
+    required: false
+    type: string
+    default: "${{ github.event.repository.name }}"
+  results_path:
+    description: "Path of the test results directory, relative to the test_suite_path. Defaults to test-results."
+    required: false
+    type: string
+    default: "test-results"
+  test_suite_path:
+    description: "Path of the java application root of the test suites, relative to the repository root. Defaults to repository root."
+    required: false
+    type: string
+    default: "."
+
+secrets:
+  QA_REPORT_TOOL_ADMIN_PASSWORD:
+    required: true
+    description: "password"
+  QA_REPORT_TOOL_ADMIN_USERNAME:
+    required: true
+    description: "username"
