@@ -1,10 +1,11 @@
 {
   "name": "publish-allure-report",
   "version": "1.0.0",
-  "description": "[![GitHub Super-Linter](https://github.com/Calance-US/public-repository-template/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)",
+  "description": "",
   "main": "index.js",
   "dependencies": {
-    "@actions/core": "^1.10.0"
+    "@actions/core": "^1.10.0",
+    "node-fetch": "^2.6.11"
   },
   "scripts": {
     "build": "ncc build index.js -m"

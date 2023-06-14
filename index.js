@@ -1,6 +1,7 @@
 const core = require('@actions/core')
 const fs = require('fs');
 const path = require('path');
+const fetch = require('node-fetch');
 
 const apiUrl = "https://qa-reports.calance.work/allure-api/allure-docker-service";
 
@@ -8,7 +9,7 @@ const loginCredentials = {
     username: process.env.username,
     password: process.env.password
 };
-const project = "${{inputs.project_name}}";
+const project = core.getInput('project_name');
 
 async function checkApiStatus() {
     try {
@@ -51,7 +52,6 @@ async function checkApiStatus() {
             const projects = data.data.projects
 
             keys = Object.keys(projects)
-            console.log(keys)
 
             const exists = keys.includes(project);
             console.log(exists);
@@ -77,7 +77,7 @@ async function checkApiStatus() {
                 console.log("Project already exists")
             }
 
-            const folderPath = "./${{ inputs.results_path }}";
+            const folderPath = core.getInput('results_path');
 
             fs.readdir(folderPath, (err, files) => {
                 if (err) {
