@@ -1,5 +1,5 @@
-name: Get the URL of packages
-description: Get the URL of packages that failed to delete or needs github assistance for deletion
+name: Publish Allure Report Action
+description: Generate selenium report for the allure tool and send latest data.
 
 inputs:
   browser_name:
@@ -43,3 +43,7 @@ secrets:
   QA_REPORT_TOOL_ADMIN_USERNAME:
     required: true
     description: "username"
+
+runs:
+  using: 'node18'
+  main: 'dist/index.js'
