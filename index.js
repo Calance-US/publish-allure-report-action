@@ -54,7 +54,6 @@ async function checkApiStatus() {
             keys = Object.keys(projects)
 
             const exists = keys.includes(project);
-            console.log(exists);
             const match = finalCookie.match(/csrf_access_token=([^;]+)/);
             const csrfAccessToken = match[1];
 
