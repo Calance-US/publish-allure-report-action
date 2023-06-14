@@ -1,0 +1,71 @@
+name: CI-CD
+on:
+  
+  # Workflow triggers when a tag of given pattern is pushed
+  push:
+    tags:
+    - v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+
+    - v[0-9]+.[0-9]+.[0-9]+
+
+jobs:
+  build-and-push-dockerimages:
+    permissions:
+      contents: read
+      packages: write
+    secrets:
+      # Secret for Github Container Registry
+      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+
+    uses: Calance-US/calance-workflows/.github/workflows/build.yml@v1.0.5
+    with:
+      # Name for the image that will be built (Defaults to repository name)
+      image_name: service_name
+      
+      # Docker Context Path (Defaults to .)
+      docker_context_path: service_name/
+      
+      # Path to the Dockerfile (Defaults to ./Dockerfile)
+      dockerfile_path: service_name/Dockerfile
+
+      # Build time environment variables as multiline string for testing environment (Defaults to "")
+      dot_env_file_testing:  ""
+
+      # Build time environment variables as multiline string for production environment (Defaults to "")
+      dot_env_file_production: ""
+      
+      # Branch that we want to build (Defaults to branch which triggered the workflow)
+      branch_name: ""
+
+  deploy-to-kubernetes:
+    needs: build-and-push-dockerimages
+    permissions:
+      contents: read
+      packages: write
+    uses: Calance-US/calance-workflows/.github/workflows/deploy.yml@v1.0.5
+    with:
+      # Enable generating namespace value according to the cluster-environment (Defaults to false)
+      env_specific_namespaces: true
+
+      # Name of the repository
+      repository_name: ${{ github.event.repository.name }}
+
+      # Name of the image (Defaults to repository_name)
+      image_name: service_name
+
+      # Application version that need to be deployed
+      version: ${{ needs.build-and-push-dockerimages.outputs.version }}
+
+      # Release Name of the Application (Defaults to "")
+      release_name: service_name
+      
+      # Cluster environment to deploy your image
+      cluster_environment: ${{ needs.build-and-push-dockerimages.outputs.cluster_environment }}
+    secrets:
+      # Domain Name of Jenkins 
+      JENKINS_URL: ${{ secrets.JENKINS_URL }}
+
+      # Username of Jenkins
+      JENKINS_USER: ${{ secrets.JENKINS_USER }}
+
+      # Token of Jenkins
+      JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
