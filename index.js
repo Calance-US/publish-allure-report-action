@@ -128,7 +128,7 @@ async function checkApiStatus() {
         if (report.status !== 200) {
             throw new Error (`Failed to create project. ${JSON.stringify(generatedReprot, null, 2)}`)
         } else{
-            console.log(generatedReprot)
+            core.info(generatedReprot)
         }
     } catch (error) {
         core.setFailed('Error occurred while hitting the API:', error.message);
