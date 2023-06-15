@@ -6,10 +6,10 @@ const fetch = require('node-fetch');
 const apiUrl = "https://qa-reports.calance.work/allure-api/allure-docker-service";
 
 const loginCredentials = {
-    username:  core.getInput('username'),
-    password:  core.getInput('password')
+    username:  "admin",
+    password:  "Calanceadmin@123"
 };
-const project = core.getInput('project_name');
+const project = "proname";
 
 async function checkApiStatus() {
     try {
@@ -50,13 +50,20 @@ async function checkApiStatus() {
         const projects = data.data.projects
 
         keys = Object.keys(projects)
+        console.log(keys)
 
         const exists = keys.includes(project);
         const match = finalCookie.match(/csrf_access_token=([^;]+)/);
         const csrfAccessToken = match[1];
 
+        console.log(exists)
+        console.log(exists)
+
         if (exists === false) {
             //create project
+            console.log(csrfAccessToken)
+            console.log(finalCookie)
+
             const res = await fetch(`${apiUrl}/projects`, {
                 method: 'POST',
                 body: JSON.stringify({
@@ -71,7 +78,7 @@ async function checkApiStatus() {
             }
         }
 
-        const folderPath = core.getInput('results_path');
+        const folderPath = 'E:/workflows/atcost-test-suite/atcost-test-suite/allure-results';
         async function readdir() {
             const file = await fs.readdir(folderPath)
             return file
@@ -120,7 +127,7 @@ async function checkApiStatus() {
         }
         const report = await fetch(`${apiUrl}/generate-report?project_id=${project}`, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json', 'cookie': finalCookie },
+            headers: { 'Content-Type': '', 'cookie': "" },
         });
 
         const generatedReprot = await report.json()
