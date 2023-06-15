@@ -127,7 +127,7 @@ async function checkApiStatus() {
         if (report.status !== 200) {
             throw new Error (`Failed to generate report. ${JSON.stringify(generatedReprot, null, 2)}`)
         } else{
-            core.info(generatedReprot)
+            console.log(generatedReprot)
         }
     } catch (error) {
         core.setFailed(`Error occurred while hitting the API: ${error.message}`);
