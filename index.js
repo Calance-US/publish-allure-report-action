@@ -125,10 +125,11 @@ async function checkApiStatus() {
 
                             const report = await fetch(`${apiUrl}/generate-report?project_id=${project}`, {
                                 method: 'GET',
-                                headers: { 'Content-Type': '', 'cookie': finalCookie },
+                                headers: { 'Content-Type': '', 'cookie': "" },
                             });
                             if (report.status !== 200) {
                                 core.setFailed(`Something went wrong in generating report. Status Code: ${report.status}`)
+                                console.log("Failed")
                             }
                             const generatedReprot = await report.json()
                             console.log(generatedReprot)
