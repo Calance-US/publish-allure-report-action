@@ -41,7 +41,7 @@ async function checkApiStatus() {
 
             const resp = await fetch(`${apiUrl}/projects`, {
                 method: 'GET',
-                headers: { 'Content-Type': 'application/json', 'cookie': finalCookie },
+                headers: { 'Content-Type': 'application/json12', 'cookie': finalCookie },
             });
             const data = await resp.json()
 
