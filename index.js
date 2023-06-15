@@ -41,7 +41,7 @@ async function checkApiStatus() {
 
             const resp = await fetch(`${apiUrl}/projects`, {
                 method: 'GET',
-                headers: { 'Content-Type': 'application/json12', 'cookie': finalCookie },
+                headers: { 'Content-Type': 'application/json', 'cookie': finalCookie },
             });
             const data = await resp.json()
 
@@ -125,7 +125,7 @@ async function checkApiStatus() {
 
                             const report = await fetch(`${apiUrl}/generate-report?project_id=${project}`, {
                                 method: 'GET',
-                                headers: { 'Content-Type': 'application/json', 'cookie': finalCookie },
+                                headers: { 'Content-Type': '', 'cookie': finalCookie },
                             });
                             if (report.status !== 200) {
                                 core.setFailed(`Something went wrong in generating report. Status Code: ${report.status}`)
