@@ -77,7 +77,6 @@ async function checkApiStatus() {
             return file
         }
         const files = await readdir()
-        console.log(files)
         let result = [];
         files.forEach((file) => {
             const filePath = path.join(folderPath, file);
@@ -131,7 +130,7 @@ async function checkApiStatus() {
             core.info(generatedReprot)
         }
     } catch (error) {
-        core.setFailed('Error occurred while hitting the API:', error.message);
+        core.setFailed(`Error occurred while hitting the API: ${error.message}`);
     }
 }
 
