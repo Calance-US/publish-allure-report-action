@@ -12,6 +12,9 @@ inputs:
     required: false
     type: string
     default: "test-results"
+  api_url:
+    description: "This refers to the URL for the QA tool."
+    required: true
   username:
     description: "Username for the QA tool. Should have admin access."
     required: true
