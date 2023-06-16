@@ -2,16 +2,16 @@ const core = require('@actions/core')
 const fs = require('fs/promises')
 const path = require('path')
 const fetch = require('node-fetch')
+const setCookieParser = require('set-cookie-parser')
 
-const apiUrl = 'https://qa-reports.calance.work/allure-api/allure-docker-service'
-
+const apiUrl = core.getInput('api_url')
 const loginCredentials = {
   username: core.getInput('username'),
   password: core.getInput('password')
 }
 const project = core.getInput('project_name')
 
-async function checkApiStatus () {
+async function publishReport () {
   try {
     // login feature
     const response = await fetch(`${apiUrl}/login`, {
@@ -23,19 +23,20 @@ async function checkApiStatus () {
     if (response.status !== 200) {
       throw new Error(`Login failed! ${JSON.stringify(message, null, 2)}`)
     }
-    const cookies = response.headers.get('set-cookie')
-    const lines = cookies.split(';')
-    const filteredLines = lines.filter(line => !line.includes('Secure') && !line.includes('HttpOnly'))
-
-    const cookieArray = filteredLines.map(value => {
-      let newVal = value.replace(' Path=/,', '')
-      newVal = value.replace(' Path=/', '')
-
-      return newVal
+    const cookie = response.headers.raw()['set-cookie']
+    const cookies = setCookieParser.parse(cookie, {
+      decodeValues: true,
+      map: true,
+      silent: false
     })
-    let finalCookie = cookieArray.join('')
-    finalCookie = finalCookie.replaceAll(',', ';')
-
+    const finalCookie = [
+      `access_token_cookie=${cookies.access_token_cookie.value}`,
+      `csrf_access_token=${cookies.csrf_access_token.value}`,
+      `refresh_token_cookie=${cookies.refresh_token_cookie.value}`,
+      `csrf_refresh_token=${cookies.csrf_refresh_token.value}`
+    ].join('; ')
+    const csrfAccessToken = cookies.csrf_access_token.value
+    console.log(csrfAccessToken)
     // get projects
     const resp = await fetch(`${apiUrl}/projects`, {
       method: 'GET',
@@ -44,7 +45,9 @@ async function checkApiStatus () {
     const data = await resp.json()
 
     if (resp.status !== 200) {
-      throw new Error(`Failed to get projects. ${JSON.stringify(data, null, 2)}`)
+      throw new Error(
+        `Failed to get projects. ${JSON.stringify(data, null, 2)}`
+      )
     }
 
     const projects = data.data.projects
@@ -52,8 +55,6 @@ async function checkApiStatus () {
     const keys = Object.keys(projects)
 
     const exists = keys.includes(project)
-    const match = finalCookie.match(/csrf_access_token=([^;]+)/)
-    const csrfAccessToken = match[1]
 
     if (exists === false) {
       // create project
@@ -62,12 +63,18 @@ async function checkApiStatus () {
         body: JSON.stringify({
           id: project
         }),
-        headers: { 'Content-Type': 'application/json', cookie: finalCookie, 'X-CSRF-TOKEN': csrfAccessToken }
+        headers: {
+          'Content-Type': 'application/json',
+          cookie: finalCookie,
+          'X-CSRF-TOKEN': csrfAccessToken
+        }
       })
 
       const newProject = await res.json()
       if (res.status !== 201) {
-        throw new Error(`Failed to create project. ${JSON.stringify(newProject, null, 2)}`)
+        throw new Error(
+          `Failed to create project. ${JSON.stringify(newProject, null, 2)}`
+        )
       }
     }
 
@@ -107,23 +114,37 @@ async function checkApiStatus () {
     }
 
     const filesData = JSON.stringify(object)
-    const res = await fetch(`${apiUrl}/send-results?project_id=${project}&force_project_creation=false`, {
-      method: 'POST',
-      body: filesData,
-      headers: { 'Content-Type': 'application/json', cookie: finalCookie, 'X-CSRF-TOKEN': csrfAccessToken }
-    })
+    const res = await fetch(
+      `${apiUrl}/send-results?project_id=${project}&force_project_creation=false`,
+      {
+        method: 'POST',
+        body: filesData,
+        headers: {
+          'Content-Type': 'application/json',
+          cookie: finalCookie,
+          'X-CSRF-TOKEN': csrfAccessToken
+        }
+      }
+    )
     const resultsApiData = await res.json()
     if (res.status !== 200) {
-      throw new Error(`Failed to send results. ${JSON.stringify(resultsApiData, null, 2)}`)
+      throw new Error(
+        `Failed to send results. ${JSON.stringify(resultsApiData, null, 2)}`
+      )
     }
-    const report = await fetch(`${apiUrl}/generate-report?project_id=${project}`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json', cookie: finalCookie }
-    })
+    const report = await fetch(
+      `${apiUrl}/generate-report?project_id=${project}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', cookie: finalCookie }
+      }
+    )
 
     const generatedReprot = await report.json()
     if (report.status !== 200) {
-      throw new Error(`Failed to generate report. ${JSON.stringify(generatedReprot, null, 2)}`)
+      throw new Error(
+        `Failed to generate report. ${JSON.stringify(generatedReprot, null, 2)}`
+      )
     } else {
       console.log(generatedReprot)
     }
@@ -132,4 +153,4 @@ async function checkApiStatus () {
   }
 }
 
-checkApiStatus().then()
+publishReport()

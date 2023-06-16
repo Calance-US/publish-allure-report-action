@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "@actions/core": "^1.10.0",
-    "node-fetch": "^2.6.11"
+    "node-fetch": "^2.6.11",
+    "set-cookie-parser": "^2.6.0"
   },
   "scripts": {
     "build": "ncc build index.js -m"
