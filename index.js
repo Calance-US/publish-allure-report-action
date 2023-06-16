@@ -36,7 +36,6 @@ async function publishReport () {
       `csrf_refresh_token=${cookies.csrf_refresh_token.value}`
     ].join('; ')
     const csrfAccessToken = cookies.csrf_access_token.value
-    console.log(csrfAccessToken)
     // get projects
     const resp = await fetch(`${apiUrl}/projects`, {
       method: 'GET',
@@ -145,9 +144,9 @@ async function publishReport () {
       throw new Error(
         `Failed to generate report. ${JSON.stringify(generatedReprot, null, 2)}`
       )
-    } else {
-      console.log(generatedReprot)
     }
+
+    core.info(`Published report. API respoonse: ${JSON.stringify(generatedReprot, null, 2)}`)
   } catch (error) {
     core.setFailed(`Error occurred while hitting the API: ${error.message}`)
   }
