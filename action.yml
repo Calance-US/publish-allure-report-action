@@ -1,0 +1,27 @@
+name: Publish Allure Report Action
+description: Generate selenium report for the allure tool and send latest data.
+
+inputs:
+  project_name:
+    description: "This refers to the name of the project that goes in allure testing tool."
+    required: false
+    type: string
+    default: "${{ github.event.repository.name }}"
+  results_path:
+    description: "Path of the test results directory. Defaults to test-results."
+    required: false
+    type: string
+    default: "test-results"
+  api_url:
+    description: "This refers to the URL for the QA tool."
+    required: true
+  username:
+    description: "Username for the QA tool. Should have admin access."
+    required: true
+  password:
+    description: "Password for the QA tool. Should have admin access."
+    required: true
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

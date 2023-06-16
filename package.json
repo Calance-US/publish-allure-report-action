@@ -1,0 +1,22 @@
+{
+  "name": "publish-allure-report",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "node-fetch": "^2.6.11",
+    "set-cookie-parser": "^2.6.0"
+  },
+  "scripts": {
+    "build": "ncc build index.js -m"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.36.1",
+    "eslint": "^8.42.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^16.0.0",
+    "eslint-plugin-promise": "^6.1.1"
+  }
+}
