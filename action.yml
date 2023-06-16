@@ -12,14 +12,12 @@ inputs:
     required: false
     type: string
     default: "test-results"
-
-secrets:
-  QA_REPORT_TOOL_ADMIN_PASSWORD:
+  username:
+    description: "Username for QA tool of admin"
     required: true
-    description: "password"
-  QA_REPORT_TOOL_ADMIN_USERNAME:
+  password:
+    description: "Password for QA tool of admin"
     required: true
-    description: "username"
 
 runs:
   using: 'node16'
