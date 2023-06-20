@@ -1,13 +1,15 @@
-# :black_nib: Project Title
+# :black_nib: Publish Allure Report GitHub Action
 
 [![GitHub Super-Linter](https://github.com/Calance-US/public-repository-template/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
-Publish Allure Report Github Action
+
+This action allows you to generate and publish Allure reports for your GitHub Actions workflows. Allure is a flexible, lightweight test report tool that provides clear and concise visual representations of test execution results.
 
 ## :baby: Requirements and Depedencies
+An instance of Allure-docker-service server which can be accessed via a public url
 - Must have a folder that includes test results.
 - The result files should either be in JSON or XML format.
-- An instance of Allure-docker-service server which can be accessed via a public url
+- An instance of [Allure-docker-service](https://github.com/fescobar/allure-docker-service#MULTIPLE-PROJECTS---REMOTE-REPORTS) server which can be accessed via a public url
 - Must have admin credentials for the QA reporting tool.
 
 ## :tada: Running the project
