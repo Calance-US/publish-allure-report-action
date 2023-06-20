@@ -1,13 +1,13 @@
+# :black_nib: Project Title
+
 [![GitHub Super-Linter](https://github.com/Calance-US/public-repository-template/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
-
-## :black_nib: Project Title
 This action allows you to generate and publish Allure reports for your GitHub Actions workflows. Allure is a flexible, lightweight test report tool that provides clear and concise visual representations of test execution results.
 
 ## :baby: Requirements and Depedencies
 - Must have a folder that includes test results.
 - The result files should either be in JSON or XML format.
-- Must have admin credentials for the QA reporting tool. 
+- Must have admin credentials for the QA reporting tool.
 
 ## :tada: Running the project
 To use this perticular action in your workflow, just update the path of this action in your uses section with the latest updated version.
@@ -24,7 +24,7 @@ There are certain input variables you have to pass while calling this action:
 Your report will be generated and updated in the allure tool. You can also check the report generated in the output of the action.
 
 ## :computer: Debugging the code
-NA 
+NA
 
 ## :flashlight: Testing
 NA
