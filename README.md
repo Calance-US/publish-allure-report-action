@@ -2,6 +2,8 @@
 
 [![GitHub Super-Linter](https://github.com/Calance-US/public-repository-template/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
+Publish Allure Report Github Action
+
 This action allows you to generate and publish Allure reports for your GitHub Actions workflows. Allure is a flexible, lightweight test report tool that provides clear and concise visual representations of test execution results.
 
 ## :baby: Requirements and Depedencies
@@ -10,7 +12,7 @@ This action allows you to generate and publish Allure reports for your GitHub Ac
 - Must have admin credentials for the QA reporting tool.
 
 ## :tada: Running the project
-To use this perticular action in your workflow, just update the path of this action in your uses section with the latest updated version.
+To use this particular action in your workflow, just update the path of this action in your uses section with the latest updated version.
 
       Calance-US/publish-allure-report-action@v1.0.0
 
