@@ -9,7 +9,7 @@ This action allows you to generate and publish Allure reports for your GitHub Ac
 An instance of Allure-docker-service server which can be accessed via a public url
 - Must have a folder that includes test results.
 - The result files should either be in JSON or XML format.
-- An instance of [Allure-docker-service](https://github.com/fescobar/allure-docker-service#MULTIPLE-PROJECTS---REMOTE-REPORTS) server which can be accessed via a public url
+- An instance of [Allure-docker-service](https://github.com/fescobar/allure-docker-service#MULTIPLE-PROJECTS---REMOTE-REPORTS) server which can be accessed via a public URL.
 - Must have admin credentials for the QA reporting tool.
 
 ## :tada: Running the project
