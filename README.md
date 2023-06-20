@@ -2,50 +2,37 @@
 
 
 ## :black_nib: Project Title
-*Write about the project in a small paragraph*
-
-## :loop: Workflow
-*Write a brief workflow of the tool along with a graphical flow chart representation*
-
-## :page_facing_up: Documentation
-*Specify the link to the project documentation or if using something like a Swagger, Mkdocs, specify instructions to use them*
+This action allows you to generate and publish Allure reports for your GitHub Actions workflows. Allure is a flexible, lightweight test report tool that provides clear and concise visual representations of test execution results.
 
 ## :baby: Requirements and Depedencies
-*Project requirements and dependencies need to be highlighted here along with versions*
-
-## :hourglass_flowing_sand: Installation
-*Write installation instructions for the project*
-
-## :cyclone: Environment variables
-*Define all the environment variables that your project needs*
+- Must have a folder that includes test results.
+- The result files should either be in JSON or XML format.
+- Must have admin credentials for the QA reporting tool. 
 
 ## :tada: Running the project
-*Write the commands and run instructions for the project under the following headers*
+To use this perticular action in your workflow, just update the path of this action in your uses section with the latest updated version.
 
-### Local
-*Commands to run the command in local along with some brief instructions*
+      Calance-US/publish-allure-report-action@v1.0.0
 
-### Docker
-*Commands to build image and run in local along with some brief instructions. Specify the path to Dockerfile and context relative to the root of the project*
+There are certain input variables you have to pass while calling this action:
+- `project_name`: This refers to the name of the project that goes in allure testing tool. If not passed it defaults to the repository name.
+- `results_path`: Path of the test results directory. If not passed it defaults to `test-results`.
+- `api_url`: This refers to the URL for the Allure QA tool.
+- `username`: Username for the QA tool. Should have admin access.
+- `password`: Password for the QA tool. Should have admin access.
+
+Your report will be generated and updated in the allure tool. You can also check the report generated in the output of the action.
 
 ## :computer: Debugging the code
-
-### Debug tool used
-*Specify which debugging tool is used along with link or instructions on how to use it*
-
-### Debug instructions
-*Specify the debugging instructions and how to install all the dependencies*
+NA 
 
 ## :flashlight: Testing
-*Specify the testing scenario of the project along with the command to run the tests*
+NA
 
 ## :information_desk_person: Contributors
-Want to reach out to the folks who have tirelessly worked on this project, please reach out to the following folks.
 
 **Project Manager/s:**
-- [Manager-Name1](Github profile url of Manager1)
-- [Manager-Name2](Github profile url of Manager2)
+- [Yash Pal Mittal](https://github.com/ypmittal)
 
 **Developer/s:**
-- [Developer-1](Github profile url of developer-1)
-- [Developer-2](Github profile url of developer-2)
+- [Ritik Mittal](https://github.com/Ritik232)
