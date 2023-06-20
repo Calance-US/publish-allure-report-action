@@ -32,6 +32,7 @@ NA
 ## :information_desk_person: Contributors
 
 **Project Manager/s:**
+- [Arpit Goyal](https://github.com/agoyalcalance)
 - [Yash Pal Mittal](https://github.com/ypmittal)
 
 **Developer/s:**
